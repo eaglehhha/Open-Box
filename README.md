@@ -12,6 +12,7 @@
 - **Android 手机**（Open-Box App）：Android 12 及以上、64 位 ARM；和家里的 Open-Box 配对使用，在外面也按同一套规则分流，见[安卓客户端](#安卓客户端)
 - **macOS 电脑**（Open-Box App）：Apple 芯片（M1 及以后）、macOS 14 及以上；功能和安卓 App 一样，见[macOS 客户端](#macos-客户端)
 - **Windows 电脑**（Open-Box App）：Windows 10 / 11 64 位；功能和安卓 App 一样，见[Windows 客户端](#windows-客户端)
+- **Linux 电脑**（Open-Box App）：Ubuntu 22.04 / 24.04、Debian 12，64 位 x86；功能和安卓 App 一样，见[Linux 客户端](#linux-客户端)
 
 路由器 / 主机用同一份安装包、同一条安装命令，脚本自己识别系统。
 
@@ -140,6 +141,16 @@ Open-Box App 把家里路由器的分流规则带到手机上：在外面也按�
   <img src="docs/pic/win-settings.webp" alt="Windows 设置" width="45%">
 </p>
 
+## Linux 客户端
+
+和安卓 App 同一套界面和功能：节点分流 / 本地分流、和路由器一样的分流规则、节点测速、连接指定 Wi-Fi 暂停。关掉窗口 App 还在后台，顶栏托盘图标的菜单里可以打开窗口、连接 / 断开、退出；退出 App 就断开 VPN。设置里有开机自启开关（默认关）。
+
+- **系统要求**：Ubuntu 22.04 / 24.04、Debian 12，64 位 x86（amd64），GNOME 或 KDE 桌面。GNOME 要有 AppIndicator 扩展才显示托盘图标（Ubuntu 自带；Debian 要装 `gnome-shell-extension-appindicator`），没有托盘时从应用列表再打开 Open-Box 就回到窗口。
+- **安装**：从 [Releases](https://github.com/liandu2024/Open-Box/releases) 下载最新的 `open-box-desktop-linux-<版本>-amd64.deb`（或在面板「设置 → 客户端」的「客户端下载」里点 Linux 图标），在下载目录里运行 `sudo apt install ./open-box-desktop-linux-<版本>-amd64.deb`，装好后在应用列表里打开 Open-Box。安装时会装一个后台服务（建立 VPN、接管系统 DNS 用，断开后自动还原）。
+- **升级**：在 App「设置 → 检查更新」里一键升级，不用输密码，装好后 App 自动重新打开。
+- **卸载**：App「设置 → 卸载 Open-Box」，或运行 `sudo apt purge open-box-desktop`。
+- 同一台电脑上装着路由器版 Open-Box（Debian / Ubuntu 版）、而且它的内核在跑时，App 不会连接，要先在它的面板里停止内核。
+
 ## 主要功能
 
 - **订阅与节点**：支持 Clash 配置、base64 节点分享和 shadowsocks、vmess、vless（含 REALITY）、trojan、hysteria2（含端口跳跃）、tuic、anytls、wireguard 等协议。节点命名遵循 Open-Box 的重命名规则：有重命名时使用重命名，没有重命名时保留原名称。
@@ -169,6 +180,7 @@ Open-Box App 把家里路由器的分流规则带到手机上：在外面也按�
 - `open-box-android-<版本>.apk`：安卓客户端（见[安卓客户端](#安卓客户端)）
 - `open-box-macos-<版本>-arm64.dmg`：macOS 客户端（见[macOS 客户端](#macos-客户端)）
 - `open-box-windows-<版本>-x64-setup.exe`：Windows 客户端（见[Windows 客户端](#windows-客户端)）
+- `open-box-desktop-linux-<版本>-amd64.deb`：Linux 客户端（见[Linux 客户端](#linux-客户端)）
 
 客户端只在有更新时随版本发布；最新版没带的话，它的版本说明末尾「客户端下载」一节有最新安装包的链接，也可以在 [Releases](https://github.com/liandu2024/Open-Box/releases) 列表里往前找。
 
