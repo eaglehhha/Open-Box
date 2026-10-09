@@ -3,18 +3,21 @@
   <img src="docs/pic/logo.png" alt="Open-Box" height="72">
 </picture>
 
-路由器 / 主机上的一体化透明代理：安装包内置 Open-Box、sing-box 内核、Node 运行时以及完整 GeoSite / GeoIP 数据，安装后通过浏览器完成订阅、节点、分流、DNS 和防火墙设置，不需要手写配置文件。
+Open-Box 分两部分：**路由器端**装在路由器 / 主机上，是一体化透明代理——安装包内置 Open-Box、sing-box 内核、Node 运行时以及完整 GeoSite / GeoIP 数据，安装后通过浏览器完成订阅、节点、分流、DNS 和防火墙设置，不需要手写配置文件；**客户端**是手机、电脑上的 Open-Box App，和家里的路由器端配对，在外面也按同一套规则分流。
 
 **支持的平台**
 
+路由器端（同一份安装包、同一条安装命令，脚本自己识别系统），见[路由器端](#路由器端)：
+
 - **OpenWrt**（含 iStoreOS、ImmortalWrt 等衍生固件）：x86_64、aarch64；主路由或旁路由都行，带 LuCI 页面
 - **Debian / Ubuntu**（需要 systemd；Ubuntu 24.04 验证过）：x86_64、aarch64；作为旁路由或只给本机用，没有 LuCI 和 dnsmasq 分流，见[安装](#安装)里的 Debian / Ubuntu 一节
-- **Android 手机**（Open-Box App）：Android 12 及以上、64 位 ARM；和家里的 Open-Box 配对使用，在外面也按同一套规则分流，见[安卓客户端](#安卓客户端)
-- **macOS 电脑**（Open-Box App）：Apple 芯片（M1 及以后）、macOS 14 及以上；功能和安卓 App 一样，见[macOS 客户端](#macos-客户端)
-- **Windows 电脑**（Open-Box App）：Windows 10 / 11 64 位；功能和安卓 App 一样，见[Windows 客户端](#windows-客户端)
-- **Linux 电脑**（Open-Box App）：Ubuntu 22.04 / 24.04、Debian 12，64 位 x86；功能和安卓 App 一样，见[Linux 客户端](#linux-客户端)
 
-路由器 / 主机用同一份安装包、同一条安装命令，脚本自己识别系统。
+客户端（Open-Box App，四个平台同一套界面和功能），见[客户端](#客户端)：
+
+- **Android 手机**：Android 12 及以上、64 位 ARM，见[安卓客户端](#安卓客户端)
+- **macOS 电脑**：Apple 芯片（M1 及以后）、macOS 14 及以上，见[macOS 客户端](#macos-客户端)
+- **Windows 电脑**：Windows 10 / 11 64 位，见[Windows 客户端](#windows-客户端)
+- **Linux 电脑**：Ubuntu 22.04 / 24.04、Debian 12，64 位 x86，见[Linux 客户端](#linux-客户端)
 
 ## 使用说明视频
 
@@ -32,7 +35,11 @@ YouTube 上的操作演示，按发布先后。点链接会在当前页面打开
 - AI 中转站：[**SUPERDOOR 订阅服务**](https://ai.superdoor.top/)
 - 按需付费 AI 服务：[**OPENDOOR**](https://ai.opendoor.sbs/)
 
-## 界面
+## 路由器端
+
+装在路由器 / 主机上的 Open-Box：浏览器里的面板加 sing-box 内核，给局域网里的设备分流。
+
+### 界面
 
 **概览**：四个测试站点的延时和最近几次的走势、连接 / 内存 / 流量的实时曲线、域名过滤统计和按月的流量洞察都在一页上。
 
@@ -71,87 +78,14 @@ YouTube 上的操作演示，按发布先后。点链接会在当前页面打开
 
 ![后端设置](docs/pic/settings-backend.webp)
 
-**手机端**：同一个面板，窄屏自动改成单列 / 两列布局，底部导航。
+**手机上打开面板**：同一个面板，窄屏自动改成单列 / 两列布局，底部导航（手机上的 App 见[客户端](#客户端)）。
 
 <p>
   <img src="docs/pic/mobile-overview.webp" alt="手机端概览" width="45%">
   <img src="docs/pic/mobile-proxies.webp" alt="手机端代理" width="45%">
 </p>
 
-## 安卓客户端
-
-Open-Box App 把家里路由器的分流规则带到手机上：在外面也按同一套规则分流，App 里的内核和路由器是同一个 sing-box。
-
-- **安装与升级**：从 [Releases](https://github.com/liandu2024/Open-Box/releases) 下载最新的 `open-box-android-<版本>.apk`（客户端不是每个版本都更新，没带安装包的版本说明里写着最新版的下载链接；也可以在面板「设置 → 客户端」最上面的「客户端下载」里点安卓图标直接下），第一次手动安装（系统会提示允许安装来自浏览器 / 文件管理器的应用）；以后在 App「设置 → 检查更新」里一键升级。
-- **节点分流**：在面板「设置 → 客户端」的「节点分流（客户端）」里扫共享网络服务器的码。手机按所在地区选一组规则（「地区分流」，可以自动定位），国内网站本地直连，其余经家里的路由器出去；路由器要有公网 IP。
-- **本地分流**：扫面板「本地分流（客户端）」的码，或导入那里导出的文件。路由器的订阅节点、节点组、目标分流、链式代理整套导进手机，手机自己分流、不经过路由器；路由器上改了配置，在 App 里同步一下就跟上，订阅在手机本机按计划刷新。
-- **和路由器一样的分流**：选了直连的流量不进内核；「连接」页能看每条连接走哪条线路、看内核日志，「路由」页签输入网址就能看它按哪条规则走（规则路由）、实际访问时怎么走（真实路由）。
-- **其他**：连上指定的 Wi-Fi（比如到家后）自动暂停 VPN、IPv6 开关、简体 / 繁體 / English、亮色 / 深色主题。
-
-首页（节点分流）、代理 · 策略（本地分流）、连接 · 路由、设置：
-
-<p>
-  <img src="docs/pic/app-home.webp" alt="App 首页" width="45%">
-  <img src="docs/pic/app-proxies.webp" alt="App 代理 · 策略" width="45%">
-</p>
-<p>
-  <img src="docs/pic/app-route.webp" alt="App 连接 · 路由" width="45%">
-  <img src="docs/pic/app-settings.webp" alt="App 设置" width="45%">
-</p>
-
-## macOS 客户端
-
-和安卓 App 同一套界面和功能：节点分流 / 本地分流、和路由器一样的分流规则、节点测速、连接指定 Wi-Fi 暂停。App 常驻菜单栏，退出 App 就断开 VPN；设置里有开机自启开关（默认关）。
-
-- **系统要求**：Apple 芯片（M1 及以后）的 Mac，macOS 14 及以上。
-- **安装**：从 [Releases](https://github.com/liandu2024/Open-Box/releases) 下载最新的 `open-box-macos-<版本>-arm64.dmg`（或在面板「设置 → 客户端」的「客户端下载」里点 macOS 图标），打开后把 Open-Box 拖进「应用程序」。App 没有 Apple 开发者签名，第一次打开会提示无法验证：到「系统设置 → 隐私与安全性」最下面点「仍要打开」（macOS 15 起右键「打开」已经绕不过去）。第一次打开还会请你输一次电脑密码，装一个后台服务（建立 VPN、修改系统 DNS 用，断开后自动还原）。
-- **升级**：在 App「设置 → 检查更新」里一键升级，不用再点「仍要打开」；后台服务有变化时会再请你输一次电脑密码。
-- **卸载**：App「设置 → 卸载 Open-Box」。
-- 「连接指定 Wi-Fi 暂停」要允许 App 使用位置信息（macOS 只把 Wi-Fi 名称给有定位权限的 App）。
-
-首页（节点分流）、代理 · 策略（本地分流）、连接 · 路由、设置：
-
-<p>
-  <img src="docs/pic/mac-home.webp" alt="macOS 首页" width="45%">
-  <img src="docs/pic/mac-proxies.webp" alt="macOS 代理 · 策略" width="45%">
-</p>
-<p>
-  <img src="docs/pic/mac-route.webp" alt="macOS 连接 · 路由" width="45%">
-  <img src="docs/pic/mac-settings.webp" alt="macOS 设置" width="45%">
-</p>
-
-## Windows 客户端
-
-和安卓 App 同一套界面和功能：节点分流 / 本地分流、和路由器一样的分流规则、节点测速、连接指定 Wi-Fi 暂停。App 常驻任务栏右下角：关掉窗口还在后台，左键点图标打开窗口，右键菜单里可以连接 / 断开、退出；退出 App 就断开 VPN。设置里有开机自启开关（默认关）。
-
-- **系统要求**：Windows 10 / 11，64 位。
-- **安装**：从 [Releases](https://github.com/liandu2024/Open-Box/releases) 下载最新的 `open-box-windows-<版本>-x64-setup.exe`（或在面板「设置 → 客户端」的「客户端下载」里点 Windows 图标），双击安装。安装包没有代码签名，运行时会提示「Windows 已保护你的电脑」：点「更多信息 → 仍要运行」，再在用户账户控制里点「是」。安装时会装一个后台服务（建立 VPN 用）。
-- **升级**：在 App「设置 → 检查更新」里一键升级：用户账户控制里点一次「是」，装好后 App 自动重新打开。
-- **卸载**：App「设置 → 卸载 Open-Box」，或在 Windows「设置 → 应用 → 已安装的应用」里卸载 Open-Box。
-- 「连接指定 Wi-Fi 暂停」在 Windows 11 24H2 及以后要在「设置 → 隐私和安全性 → 位置」里打开定位服务、允许桌面应用访问位置（Windows 只把 Wi-Fi 名称给有定位权限的应用）。
-
-首页（节点分流）、代理 · 策略（本地分流）、连接 · 路由、设置：
-
-<p>
-  <img src="docs/pic/win-home.webp" alt="Windows 首页" width="45%">
-  <img src="docs/pic/win-proxies.webp" alt="Windows 代理 · 策略" width="45%">
-</p>
-<p>
-  <img src="docs/pic/win-route.webp" alt="Windows 连接 · 路由" width="45%">
-  <img src="docs/pic/win-settings.webp" alt="Windows 设置" width="45%">
-</p>
-
-## Linux 客户端
-
-和安卓 App 同一套界面和功能：节点分流 / 本地分流、和路由器一样的分流规则、节点测速、连接指定 Wi-Fi 暂停。关掉窗口 App 还在后台，顶栏托盘图标的菜单里可以打开窗口、连接 / 断开、退出；退出 App 就断开 VPN。设置里有开机自启开关（默认关）。
-
-- **系统要求**：Ubuntu 22.04 / 24.04、Debian 12，64 位 x86（amd64），GNOME 或 KDE 桌面。GNOME 要有 AppIndicator 扩展才显示托盘图标（Ubuntu 自带；Debian 要装 `gnome-shell-extension-appindicator`），没有托盘时从应用列表再打开 Open-Box 就回到窗口。
-- **安装**：从 [Releases](https://github.com/liandu2024/Open-Box/releases) 下载最新的 `open-box-desktop-linux-<版本>-amd64.deb`（或在面板「设置 → 客户端」的「客户端下载」里点 Linux 图标），在下载目录里运行 `sudo apt install ./open-box-desktop-linux-<版本>-amd64.deb`，装好后在应用列表里打开 Open-Box。安装时会装一个后台服务（建立 VPN、接管系统 DNS 用，断开后自动还原）。
-- **升级**：在 App「设置 → 检查更新」里一键升级，不用输密码，装好后 App 自动重新打开。
-- **卸载**：App「设置 → 卸载 Open-Box」，或运行 `sudo apt purge open-box-desktop`。
-- 同一台电脑上装着路由器版 Open-Box（Debian / Ubuntu 版）、而且它的内核在跑时，App 不会连接，要先在它的面板里停止内核。
-
-## 主要功能
+### 主要功能
 
 - **订阅与节点**：支持 Clash 配置、base64 节点分享和 shadowsocks、vmess、vless（含 REALITY）、trojan、hysteria2（含端口跳跃）、tuic、anytls、wireguard 等协议。节点命名遵循 Open-Box 的重命名规则：有重命名时使用重命名，没有重命名时保留原名称。
 - **节点组**：提供自动择优（url-test）、手动选择（select）和故障转移组；动态组按关键词跟随订阅更新（链式代理不进动态组，要用就加进静态组），静态组可以手工选择节点。故障转移组按主备页签排优先级：主用不通才切到备用，主用恢复再切回。
@@ -171,18 +105,14 @@ Open-Box App 把家里路由器的分流规则带到手机上：在外面也按�
 - **组件升级**：Open-Box 程序、sing-box 内核和 GeoSite / GeoIP 数据统一从本仓库 Release 获取。升级前会校验本地版本和文件完整性，版本一致且文件正常时不会重复下载；完整安装包始终包含三类组件，新安装无需另行下载规则数据库。
 - **LuCI 兜底页**：面板打不开时，可以从路由器的“服务 → Open-Box”页面启停服务、恢复直连或卸载。
 
-## 下载
+### 下载
 
 请从 [GitHub Releases](https://github.com/liandu2024/Open-Box/releases/latest) 下载对应架构的完整安装包：
 
 - `x64`：x86_64 路由器 / 主机
 - `arm64`：aarch64 路由器 / 主机
-- `open-box-android-<版本>.apk`：安卓客户端（见[安卓客户端](#安卓客户端)）
-- `open-box-macos-<版本>-arm64.dmg`：macOS 客户端（见[macOS 客户端](#macos-客户端)）
-- `open-box-windows-<版本>-x64-setup.exe`：Windows 客户端（见[Windows 客户端](#windows-客户端)）
-- `open-box-desktop-linux-<版本>-amd64.deb`：Linux 客户端（见[Linux 客户端](#linux-客户端)）
 
-客户端只在有更新时随版本发布；最新版没带的话，它的版本说明末尾「客户端下载」一节有最新安装包的链接，也可以在 [Releases](https://github.com/liandu2024/Open-Box/releases) 列表里往前找。
+客户端的安装包见[客户端](#客户端)。
 
 同一份安装包既能装在 OpenWrt 上，也能装在 Debian / Ubuntu（systemd）上，安装脚本会自行识别（见[安装](#安装)末尾）。
 
@@ -190,7 +120,7 @@ Open-Box App 把家里路由器的分流规则带到手机上：在外面也按�
 
 作为旁路由使用（把终端的网关 / DNS 指向 Open-Box 所在设备）时，旁路由的 LAN 区域要打开「IP 动态伪装」（MASQUERADE），否则直连站点的回包不经旁路由、连接对不上，表现为只能上国外、打不开大陆网站。
 
-## 安装
+### 安装
 
 SSH 以 root 登录 OpenWrt 路由器后执行：
 
@@ -212,7 +142,7 @@ curl -fsSL https://gh-proxy.com/raw.githubusercontent.com/liandu2024/Open-Box/ma
 
 安装完成后，用浏览器打开 `http://<路由器 LAN 地址>:<面板端口>`（安装脚本结束时会打印这个地址），**首次打开时设置面板密码**。以后忘了密码不用重装，见下面的[忘记面板密码](#忘记面板密码)。
 
-### Debian / Ubuntu
+#### Debian / Ubuntu
 
 同样的安装、升级、卸载命令也适用于 Debian / Ubuntu（需要 systemd；在 Ubuntu 24.04 上验证过），以 root 或 `sudo` 执行即可。脚本会识别系统：服务交给 systemd（`openbox.service` 内核、`openbox-panel.service` 面板），命令行 `open-box` 放在 `/usr/local/bin`，随包的 Node 是 OpenWrt 用的 musl 版，安装时会从 nodejs.org（不通时换 npmmirror）下载同版本的官方 glibc 版替换，所以安装机器要能访问其中之一。依赖用 apt 补齐（nftables、xz-utils、iproute2、ca-certificates），tun / nftables 内核模块随发行版内核自带。
 
@@ -223,7 +153,7 @@ curl -fsSL https://gh-proxy.com/raw.githubusercontent.com/liandu2024/Open-Box/ma
 - 内核启动时会打开 IP 转发（`net.ipv4.ip_forward=1`，原来关着的话停止时关回去），这样局域网终端把网关 / DNS 指向这台机器就能走它分流；只给本机用的话不用管。
 - 排障看 `journalctl -u openbox -u openbox-panel`；紧急恢复直连 `systemctl stop openbox`。
 
-## 修改面板端口
+### 修改面板端口
 
 新装的默认端口是 **3036**；**v0.1.216 及更早装的机器升级后端口不变**（还是 2026），不会被新默认值挪走。
 
@@ -234,7 +164,7 @@ curl -fsSL https://gh-proxy.com/raw.githubusercontent.com/liandu2024/Open-Box/ma
 
 改完记得用新地址访问面板。
 
-## 忘记面板密码
+### 忘记面板密码
 
 面板密码保存在路由器上，能以 root 登上路由器就能查到，**不需要重装，也不会丢失订阅和规则**。两个地方可以看：
 
@@ -263,7 +193,7 @@ Open-Box v0.1.216
 
 查到密码后想换一个：登录面板，在「设置」页点「修改密码」。
 
-## 升级
+### 升级
 
 面板中可以从“设置 → 后端设置”检查更新，也可以通过 SSH 执行（OpenWrt 与 Debian / Ubuntu 同一条命令）：
 
@@ -273,7 +203,7 @@ curl -fsSL https://raw.githubusercontent.com/liandu2024/Open-Box/main/scripts/up
 
 升级会保留订阅、规则和面板密码，并校验 Open-Box、sing-box、GeoSite / GeoIP 组件。相同且完整的组件直接复用，只有变化、缺失或损坏的组件才会从本仓库 Release 下载。
 
-### 回退到上一个版本
+#### 回退到上一个版本
 
 如果升级后面板或内核异常,可以用下面的命令回退:脚本会到 GitHub 查当前版本之前最近的正式 Release,重新下载那一版的完整安装包装回去。路由器本机不保留旧版备份,所以回退需要能访问 GitHub(或镜像);订阅、规则、面板密码等数据目录不会被动。
 
@@ -289,7 +219,7 @@ curl -fsSL https://gh-proxy.com/raw.githubusercontent.com/liandu2024/Open-Box/ma
 
 两条命令都会自动识别路由器架构,下载上一个版本的完整安装包,先校验 SHA256,再替换当前文件;校验或替换失败会保留现有安装。--mirror 只影响安装包下载,查询 Release 列表的 GitHub API 会先直连、直连不通再经镜像。
 
-## 卸载
+### 卸载
 
 默认停止服务并保留订阅和配置数据：
 
@@ -302,6 +232,96 @@ curl -fsSL https://raw.githubusercontent.com/liandu2024/Open-Box/main/scripts/un
 ```sh
 curl -fsSL https://raw.githubusercontent.com/liandu2024/Open-Box/main/scripts/uninstall.sh | sh -s -- --purge
 ```
+
+## 客户端
+
+Open-Box App 把家里路由器端的分流规则带到手机、电脑上：在外面也按同一套规则分流，App 里的内核和路由器端是同一个 sing-box。安卓、macOS、Windows、Linux 四个平台同一套界面和功能：
+
+- **节点分流**：在面板「设置 → 客户端」的「节点分流（客户端）」里扫共享网络服务器的码（电脑上粘贴链接）。App 按所在地区选一组规则（「地区分流」，可以自动定位），国内网站本地直连，其余经家里的路由器出去；路由器要有公网 IP。
+- **本地分流**：扫面板「本地分流（客户端）」的码（电脑上粘贴链接），或导入那里导出的文件。路由器的订阅节点、节点组、目标分流、链式代理整套导进 App，App 自己分流、不经过路由器；路由器上改了配置，在 App 里同步一下就跟上，订阅在 App 本机按计划刷新。
+- **和路由器一样的分流**：选了直连的流量不进内核；「连接」页能看每条连接走哪条线路、看内核日志，「路由」页签输入网址就能看它按哪条规则走（规则路由）、实际访问时怎么走（真实路由）。
+- **其他**：连上指定的 Wi-Fi（比如到家后）自动暂停 VPN、IPv6 开关、简体 / 繁體 / English、亮色 / 深色主题。
+
+安装包都在 [Releases](https://github.com/liandu2024/Open-Box/releases)：`open-box-android-<版本>.apk`、`open-box-macos-<版本>-arm64.dmg`、`open-box-windows-<版本>-x64-setup.exe`、`open-box-desktop-linux-<版本>-amd64.deb`，也可以在面板「设置 → 客户端」最上面的「客户端下载」里直接点。客户端只在有更新时随版本发布；最新版没带的话，它的版本说明末尾「客户端下载」一节有最新安装包的链接，也可以在 Releases 列表里往前找。
+
+### 安卓客户端
+
+- **系统要求**：Android 12 及以上、64 位 ARM。
+- **安装与升级**：从 [Releases](https://github.com/liandu2024/Open-Box/releases) 下载最新的 `open-box-android-<版本>.apk`（或在面板「设置 → 客户端」的「客户端下载」里点安卓图标），第一次手动安装（系统会提示允许安装来自浏览器 / 文件管理器的应用）；以后在 App「设置 → 检查更新」里一键升级。
+
+首页（节点分流）、代理 · 策略（本地分流）、连接 · 路由、设置：
+
+<p>
+  <img src="docs/pic/app-home.webp" alt="App 首页" width="45%">
+  <img src="docs/pic/app-proxies.webp" alt="App 代理 · 策略" width="45%">
+</p>
+<p>
+  <img src="docs/pic/app-route.webp" alt="App 连接 · 路由" width="45%">
+  <img src="docs/pic/app-settings.webp" alt="App 设置" width="45%">
+</p>
+
+### macOS 客户端
+
+App 常驻菜单栏，退出 App 就断开 VPN；设置里有开机自启开关（默认关）。
+
+- **系统要求**：Apple 芯片（M1 及以后）的 Mac，macOS 14 及以上。
+- **安装**：从 [Releases](https://github.com/liandu2024/Open-Box/releases) 下载最新的 `open-box-macos-<版本>-arm64.dmg`（或在面板「设置 → 客户端」的「客户端下载」里点 macOS 图标），打开后把 Open-Box 拖进「应用程序」。App 没有 Apple 开发者签名，第一次打开会提示无法验证：到「系统设置 → 隐私与安全性」最下面点「仍要打开」（macOS 15 起右键「打开」已经绕不过去）。第一次打开还会请你输一次电脑密码，装一个后台服务（建立 VPN、修改系统 DNS 用，断开后自动还原）。
+- **升级**：在 App「设置 → 检查更新」里一键升级，不用再点「仍要打开」；后台服务有变化时会再请你输一次电脑密码。
+- **卸载**：App「设置 → 卸载 Open-Box」。
+- 「连接指定 Wi-Fi 暂停」要允许 App 使用位置信息（macOS 只把 Wi-Fi 名称给有定位权限的 App）。
+
+首页（节点分流）、代理 · 策略（本地分流）、连接 · 路由、设置：
+
+<p>
+  <img src="docs/pic/mac-home.webp" alt="macOS 首页" width="45%">
+  <img src="docs/pic/mac-proxies.webp" alt="macOS 代理 · 策略" width="45%">
+</p>
+<p>
+  <img src="docs/pic/mac-route.webp" alt="macOS 连接 · 路由" width="45%">
+  <img src="docs/pic/mac-settings.webp" alt="macOS 设置" width="45%">
+</p>
+
+### Windows 客户端
+
+App 常驻任务栏右下角：关掉窗口还在后台，左键点图标打开窗口，右键菜单里可以连接 / 断开、退出；退出 App 就断开 VPN。设置里有开机自启开关（默认关）。
+
+- **系统要求**：Windows 10 / 11，64 位。
+- **安装**：从 [Releases](https://github.com/liandu2024/Open-Box/releases) 下载最新的 `open-box-windows-<版本>-x64-setup.exe`（或在面板「设置 → 客户端」的「客户端下载」里点 Windows 图标），双击安装。安装包没有代码签名，运行时会提示「Windows 已保护你的电脑」：点「更多信息 → 仍要运行」，再在用户账户控制里点「是」。安装时会装一个后台服务（建立 VPN 用）。
+- **升级**：在 App「设置 → 检查更新」里一键升级：用户账户控制里点一次「是」，装好后 App 自动重新打开。
+- **卸载**：App「设置 → 卸载 Open-Box」，或在 Windows「设置 → 应用 → 已安装的应用」里卸载 Open-Box。
+- 「连接指定 Wi-Fi 暂停」在 Windows 11 24H2 及以后要在「设置 → 隐私和安全性 → 位置」里打开定位服务、允许桌面应用访问位置（Windows 只把 Wi-Fi 名称给有定位权限的应用）。
+
+首页（节点分流）、代理 · 策略（本地分流）、连接 · 路由、设置：
+
+<p>
+  <img src="docs/pic/win-home.webp" alt="Windows 首页" width="45%">
+  <img src="docs/pic/win-proxies.webp" alt="Windows 代理 · 策略" width="45%">
+</p>
+<p>
+  <img src="docs/pic/win-route.webp" alt="Windows 连接 · 路由" width="45%">
+  <img src="docs/pic/win-settings.webp" alt="Windows 设置" width="45%">
+</p>
+
+### Linux 客户端
+
+关掉窗口 App 还在后台，顶栏托盘图标的菜单里可以打开窗口、连接 / 断开、退出；退出 App 就断开 VPN。设置里有开机自启开关（默认关）。
+
+- **系统要求**：Ubuntu 22.04 / 24.04、Debian 12，64 位 x86（amd64），GNOME 或 KDE 桌面。GNOME 要有 AppIndicator 扩展才显示托盘图标（Ubuntu 自带；Debian 要装 `gnome-shell-extension-appindicator`），没有托盘时从应用列表再打开 Open-Box 就回到窗口。
+- **安装**：从 [Releases](https://github.com/liandu2024/Open-Box/releases) 下载最新的 `open-box-desktop-linux-<版本>-amd64.deb`（或在面板「设置 → 客户端」的「客户端下载」里点 Linux 图标），在下载目录里运行 `sudo apt install ./open-box-desktop-linux-<版本>-amd64.deb`，装好后在应用列表里打开 Open-Box。安装时会装一个后台服务（建立 VPN、接管系统 DNS 用，断开后自动还原）。
+- **升级**：在 App「设置 → 检查更新」里一键升级，不用输密码，装好后 App 自动重新打开。
+- **卸载**：App「设置 → 卸载 Open-Box」，或运行 `sudo apt purge open-box-desktop`。
+- 同一台电脑上装着路由器端 Open-Box（Debian / Ubuntu 版）、而且它的内核在跑时，App 不会连接，要先在它的面板里停止内核。
+
+首页（节点分流）、代理 · 策略（本地分流）、连接 · 路由、设置：
+
+<p>
+  <img src="docs/pic/linux-home.webp" alt="Linux 首页" width="45%">
+  <img src="docs/pic/linux-proxies.webp" alt="Linux 代理 · 策略" width="45%">
+</p>
+<p>
+  <img src="docs/pic/linux-route.webp" alt="Linux 连接 · 路由" width="45%">
+  <img src="docs/pic/linux-settings.webp" alt="Linux 设置" width="45%">
+</p>
 
 ## 许可证
 
