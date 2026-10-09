@@ -14,7 +14,7 @@ Open-Box 分两部分：**路由器端**装在路由器 / 主机上，是一体�
 
 客户端（Open-Box App，四个平台同一套界面和功能），见[客户端](#客户端)：
 
-- **Android 手机**：Android 12 及以上、64 位 ARM，见[安卓客户端](#安卓客户端)
+- **Android 手机**：Android 12 及以上、64 位 ARM，见[Android 客户端](#android-客户端)
 - **macOS 电脑**：Apple 芯片（M1 及以后）、macOS 14 及以上，见[macOS 客户端](#macos-客户端)
 - **Windows 电脑**：Windows 10 / 11 64 位，见[Windows 客户端](#windows-客户端)
 - **Linux 电脑**：Ubuntu 22.04 / 24.04、Debian 12，64 位 x86，见[Linux 客户端](#linux-客户端)
@@ -235,7 +235,7 @@ curl -fsSL https://raw.githubusercontent.com/liandu2024/Open-Box/main/scripts/un
 
 ## 客户端
 
-Open-Box App 把家里路由器端的分流规则带到手机、电脑上：在外面也按同一套规则分流，App 里的内核和路由器端是同一个 sing-box。安卓、macOS、Windows、Linux 四个平台同一套界面和功能：
+Open-Box App 把家里路由器端的分流规则带到手机、电脑上：在外面也按同一套规则分流，App 里的内核和路由器端是同一个 sing-box。Android、macOS、Windows、Linux 四个平台同一套界面和功能：
 
 - **节点分流**：在面板「设置 → 客户端」的「节点分流（客户端）」里扫共享网络服务器的码（电脑上粘贴链接）。App 按所在地区选一组规则（「地区分流」，可以自动定位），国内网站本地直连，其余经家里的路由器出去；路由器要有公网 IP。
 - **本地分流**：扫面板「本地分流（客户端）」的码（电脑上粘贴链接），或导入那里导出的文件。路由器的订阅节点、节点组、目标分流、链式代理整套导进 App，App 自己分流、不经过路由器；路由器上改了配置，在 App 里同步一下就跟上，订阅在 App 本机按计划刷新。
@@ -244,10 +244,10 @@ Open-Box App 把家里路由器端的分流规则带到手机、电脑上：在�
 
 安装包都在 [Releases](https://github.com/liandu2024/Open-Box/releases)：`open-box-android-<版本>.apk`、`open-box-macos-<版本>-arm64.dmg`、`open-box-windows-<版本>-x64-setup.exe`、`open-box-desktop-linux-<版本>-amd64.deb`，也可以在面板「设置 → 客户端」最上面的「客户端下载」里直接点。客户端只在有更新时随版本发布；最新版没带的话，它的版本说明末尾「客户端下载」一节有最新安装包的链接，也可以在 Releases 列表里往前找。
 
-### 安卓客户端
+### Android 客户端
 
 - **系统要求**：Android 12 及以上、64 位 ARM。
-- **安装与升级**：从 [Releases](https://github.com/liandu2024/Open-Box/releases) 下载最新的 `open-box-android-<版本>.apk`（或在面板「设置 → 客户端」的「客户端下载」里点安卓图标），第一次手动安装（系统会提示允许安装来自浏览器 / 文件管理器的应用）；以后在 App「设置 → 检查更新」里一键升级。
+- **安装与升级**：从 [Releases](https://github.com/liandu2024/Open-Box/releases) 下载最新的 `open-box-android-<版本>.apk`（或在面板「设置 → 客户端」的「客户端下载」里点 Android 图标），第一次手动安装（系统会提示允许安装来自浏览器 / 文件管理器的应用）；以后在 App「设置 → 检查更新」里一键升级。
 
 首页（节点分流）、代理 · 策略（本地分流）、连接 · 路由、设置：
 
